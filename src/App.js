@@ -34,7 +34,7 @@ function App() {
             <Route exact path="/signup" element={<SignUp showAlert={showAlert}/>} />
           </Routes>
           </div>
-          <footer className="position-absolute top-100 start-50 translate-middle-x my-5" style={{fontWeight:"bold"}}>Copyright &copy; | All Rights Are Reserved</footer>
+          <footer className="position-absolute top-100 start-50 translate-middle-x my-5" style={{fontWeight:"bold", textAlign:"center"}}>Copyright &copy; | All Rights Are Reserved</footer>
         </BrowserRouter>
       </NoteState>
     </>

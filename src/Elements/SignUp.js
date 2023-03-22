@@ -51,7 +51,7 @@ const onChange = (e) => {
   return (
     <div className="container border border-info border-3 rounded-3 p-3  bg-info bg-gradient">
       <div className="container p-4">
-      <h1>SignUp To Explore INFINITY NOTES</h1>
+      <h1>SignUp To Explore Infinity Notes</h1>
       <form onSubmit={handleSubmit} className="my-2">
         <div className="mb-3">
           <label htmlFor="name" className="form-label">

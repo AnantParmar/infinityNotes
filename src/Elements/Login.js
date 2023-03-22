@@ -44,7 +44,7 @@ const Login = (props) => {
   return (
     <div className="container border border-info border-3 rounded-3 p-3 bg-info  bg-gradient">
       <div className="container p-4">
-        <h1>Login To INFINITY NOTES</h1>
+        <h1>Login To Infinity Notes</h1>
         <form onSubmit={handleSubmit} className="form-floating my-3">
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
