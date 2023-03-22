@@ -6,26 +6,43 @@ const SignUp = (props) => {
   const [credentials, setCreadentials] = useState({name: "",email: "", password: "", cpassword: ""})
   let navigate = useNavigate();
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+  const [error, setError] = useState("");
   const handleSubmit = async (e) => {
+    const {name, email, password, cpassword} = credentials;
+    if (!email || !password || !name || !cpassword) {
+      setError("Fill All Fields");
+      e.preventDefault();
+      return;
+    }
+    if(password!==cpassword)
+    {
+      setError("Passwords not Matched");
+      e.preventDefault();
+      return;
+    }
     e.preventDefault();
    
-    const {name, email, password} = credentials;
     setSubmitButtonDisabled(true);
 
     createUserWithEmailAndPassword(auth, email, password).then((res)=>{
+      props.showAlert("Successfully SignUp", "success")
       setSubmitButtonDisabled(false);
-      // console.log(res);
       const user = res.user;
       updateProfile(user, {
         displayName: name
       })
-      console.log(user)
+      navigate("/login");
     }).catch((err)=>{
-      console.log("Error-",err)
+      if(err.message==="EMAIL_EXISTS")
+      {
+        return;
+      }
+      props.showAlert("You have an Account", "danger")
       setSubmitButtonDisabled(false);
+      navigate("/login")
+      return;
     })
     
-    navigate("/login");
   }
 const onChange = (e) => {
     setCreadentials({...credentials, [e.target.name]: e.target.value})
@@ -34,7 +51,7 @@ const onChange = (e) => {
   return (
     <div className="container border border-info border-3 rounded-3 p-3  bg-info bg-gradient">
       <div className="container p-4">
-      <h1>SignUp To Explore iNoteBook</h1>
+      <h1>SignUp To Explore INFINITY NOTES</h1>
       <form onSubmit={handleSubmit} className="my-2">
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
@@ -88,7 +105,7 @@ const onChange = (e) => {
             onChange={onChange} minLength={5} required
           />
         </div>
-
+        <h6 className="text-danger">{error}</h6>
         <button disabled={submitButtonDisabled?"disabled":""} type="submit" className="btn btn-primary" id="signInBtn">
           SignUp
         </button>

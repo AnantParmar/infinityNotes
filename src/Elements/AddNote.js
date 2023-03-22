@@ -1,15 +1,13 @@
 import React, {useContext, useState} from "react";
 import noteContext from "../context/notes/noteContext";
-import { doc, setDoc,collection,addDoc } from "firebase/firestore";
-import {onAuthStateChanged} from "firebase/auth"
-import {db,auth} from "../config"
+import { doc, setDoc,collection} from "firebase/firestore";
+import {db} from "../config"
 const AddNote = (props) => {
     const context = useContext(noteContext);
   const {getNotes, uid } = context;
   const[note, setNote] = useState({title: "", description: "", tag: ""});
   const handleClick = async (e) => {
     e.preventDefault();
-    console.log("Adding Note")
 
     const newNotRef = doc(collection(db, "notes"));
     

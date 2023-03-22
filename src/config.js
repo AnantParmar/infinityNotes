@@ -1,24 +1,20 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-// import { getAnalytics } from "firebase/analytics";
-
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAgoodG8sHk4gdYdWP90egwuHF0JUYOn5c",
-  authDomain: "inotebook-by-infinity.firebaseapp.com",
-  projectId: "inotebook-by-infinity",
-  storageBucket: "inotebook-by-infinity.appspot.com",
-  messagingSenderId: "855589767426",
-  appId: "1:855589767426:web:97efb67535f3f499d5da1b",
-  measurementId: "G-RHBR4WE0K3"
+  apiKey: "AIzaSyCx7KuctTz8742rB0--Ps0Y_-1d6PRa1CA",
+  authDomain: "infinity-notes-by-infinity.firebaseapp.com",
+  projectId: "infinity-notes-by-infinity",
+  storageBucket: "infinity-notes-by-infinity.appspot.com",
+  messagingSenderId: "1049906298543",
+  appId: "1:1049906298543:web:05ebedfff091b61bcd9e5a",
+  measurementId: "G-4G22M65LNS"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 auth.languageCode = 'it';
-// const noteCol = db.collection();
+
 export {app,auth,db};
-// const analytics = getAnalytics(app);

@@ -14,7 +14,8 @@ const Navbar = (props) => {
     signOut(auth).then(() => {
       props.showAlert("Thanks For Using", "success");
       navigate("/login");
-    }).catch((error) => {
+    }).catch((err) => {
+      props.showAlert(err, "danger");
     });
   };
   let location = useLocation();
@@ -23,7 +24,7 @@ const Navbar = (props) => {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid ">
           <Link className="navbar-brand" id="logo" to="/">
-            <img src={logo} width={"50px"} height={"50px"}/>
+            <img src={logo} width={"50px"} height={"50px"} alt={"logo"}/>
             <span id="logoText">INFINITY NOTES</span>
           </Link>
           
@@ -39,8 +40,8 @@ const Navbar = (props) => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse " id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0" >
-              <li className="nav-item mx-2">
+            <ul className="navbar-nav  mb-2 mb-lg-0" >
+              <li className="nav-item mx-2 my-2">
                 <Link
                   className={`nav-link ${
                     location.pathname === "/" ? "active" : ""
@@ -48,23 +49,20 @@ const Navbar = (props) => {
                   aria-current="page"
                   to="/"
                 >
-                  <i class="fa-solid fa-house"></i> HOME 
+                  <i className="fa-solid fa-house"></i> HOME 
                 </Link>
               </li>
-              <li className="nav-item max-4">
+              <li className="nav-item max-4 my-2">
                 <Link
                   className={`nav-link ${
                     location.pathname === "/about" ? "active" : ""
                   }`}
                   to="about"
                 >
-                  <i class="fa-solid fa-circle-info"></i> ABOUT
+                  <i className="fa-solid fa-circle-info"></i> ABOUT
                 </Link>
               </li>
-              
-            </ul>
-          </div> 
-            
+              </ul>
             {!uid ? (
               <form className="d-flex" role="search">
                 <Link
@@ -100,6 +98,8 @@ const Navbar = (props) => {
                 </Link>
               </div>
             )}
+          
+          </div> 
           {/* </div> */}
         </div>
       </nav>

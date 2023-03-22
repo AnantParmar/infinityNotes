@@ -5,19 +5,16 @@ import Noteitem from "./Noteitem";
 import {useNavigate} from 'react-router-dom'
 const Notes = (props ) => {
 
-
-  let notesArray = []
   const context = useContext(noteContext);
   const[note, setNote] = useState({id:"",etitle: "", edescription: "", etag: "default"})
   const { notes, getNotes, editNote, uid } = context;
-  var result = [];
-  var i 
+
   let navigate = useNavigate();
   useEffect(() => {
     if(uid)
     {
       getNotes();
-      console.log("loggedIn")
+      props.showAlert("Logged Sucessfully", "success")
     }else {
       navigate("/login");
     }
@@ -29,11 +26,10 @@ const Notes = (props ) => {
   const updateNote = (id,title,description,tag) => {
     ref.current.click();
     setNote({id: id, etitle: title, edescription: description, etag: tag})
-    // props.showAlert("Updated Successfully", "success")
+    
   };
 
   const handleClick = (e) => {
-    console.log("Updating Note"+note);
     editNote(note.id, note.etitle, note.edescription, note.etag)
     refClose.current.click();
   }
@@ -134,8 +130,7 @@ const Notes = (props ) => {
               >
                 Close
               </button>
-              <button disabled={note.etitle.length<5 || note.edescription.length<5} type="button" className="btn btn-primary" onClick={()=>{handleClick()
-              props.showAlert("Updated Successfully", "success")}}>
+              <button disabled={note.etitle.length<5 || note.edescription.length<5} type="button" className="btn btn-primary" onClick={()=>{handleClick()}}>
                 Update Note
               </button>
             </div>
@@ -146,14 +141,10 @@ const Notes = (props ) => {
       <div className="container my-2">
         <h2>Your Notes</h2>
         <div className="row mx-2">
-        
-        {console.log(notes)}
-      
         {notes.length === 0 ? "No Notes to Display":
         
          notes.sort((a,b) => b.date.seconds - a.date.seconds).map(({title, description,tag, doc_id}) => {
        
-          //  console.log(doc_id)
           return (
             <Noteitem key={doc_id} id={doc_id} title={title} description={description} tag={tag}updateNote={updateNote} showAlert={props.showAlert}></Noteitem>
             
