@@ -89,7 +89,14 @@ i {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    /* flex-direction: column; */
+    flex-direction: row;
+  }
+  #loginDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: row;
   }
   /* .navbar {
       display: block;

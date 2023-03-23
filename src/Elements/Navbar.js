@@ -64,6 +64,7 @@ const Navbar = (props) => {
               </li>
               </ul>
             {!uid ? (
+              <div id={"loginDiv"}>
               <form className="d-flex" role="search">
                 <Link
                   className={`btn btn-primary mx-1  ${
@@ -85,6 +86,7 @@ const Navbar = (props) => {
                   SignUp
                 </Link>
               </form>
+              </div>
             ) : (
               <div id={"logoutDiv"}>
                 <button type="button" disabled className={`user btn btn-outline-info mx-2  ${user===""?"d-none":""}`}>{user}</button>
