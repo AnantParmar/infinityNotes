@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import {useNavigate, Link} from 'react-router-dom'
-import {createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { auth } from "../config";
+import {createUserWithEmailAndPassword, updateProfile,sendEmailVerification} from 'firebase/auth'
+import { collection, doc, setDoc} from "firebase/firestore";
+import { app,auth , actionCodeSettings, db, } from "../config";
+
 const SignUp = (props) => {
   const [credentials, setCreadentials] = useState({name: "",email: "", password: "", cpassword: ""})
   let navigate = useNavigate();
@@ -20,28 +22,59 @@ const SignUp = (props) => {
       e.preventDefault();
       return;
     }
+
     e.preventDefault();
    
     setSubmitButtonDisabled(true);
 
-    createUserWithEmailAndPassword(auth, email, password).then((res)=>{
+    createUserWithEmailAndPassword(auth, email, password).
+    then((res)=> {
+      sendEmailVerification(auth.currentUser)
+      .then(() => {
+        alert('Email Sent For Verification')
+        window.open('https://mail.google.com/mail/');
+        alert('Please Verify Your Email either Your Account is Deleted When You Try To Login')
+      })
+      .catch((err)=>{
+        alert(err.message)
+      })
+      // .then(()=>{
+
+      //   const newUserRef = doc(collection(db, "users"));
+      //   setDoc(newUserRef,{
+      //     name:name, 
+      //     email:email,
+      //     date:new Date(),
+      //     userId : res.user.uid,
+      //     doc_id : newUserRef.id
+      //   })
+      //   .catch((err)=>{
+      //     console.log(err.message)
+      //     alert(err.message)
+      //   })
+      // })
+      // .catch((err)=>{
+      //   console.log(err.message)
+      //   alert(err.message)
+      // })
+
       props.showAlert("Successfully SignUp", "success")
       setSubmitButtonDisabled(false);
       const user = res.user;
       updateProfile(user, {
         displayName: name
       })
+      
       navigate("/login");
     }).catch((err)=>{
-      if(err.message==="EMAIL_EXISTS")
-      {
-        return;
-      }
-      props.showAlert("You have an Account", "danger")
+      alert(err.message)
+      console.log(err)
+      // props.showAlert(err.code, "danger")
       setSubmitButtonDisabled(false);
       navigate("/login")
       return;
     })
+
     
   }
 const onChange = (e) => {

@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import noteContext from "../context/notes/noteContext";
 import { useNavigate, Link } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../config";
+import { signInWithEmailAndPassword , deleteUser, } from "firebase/auth";
+import { auth,db } from "../config";
 
 const Login = (props) => {
   const [credentials, setCreadentials] = useState({ email: "", password: "" });
@@ -24,18 +24,29 @@ const Login = (props) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((res) => {
         setSubmitButtonDisabled(false);
+        if(!res.user.emailVerified)
+        {
+          deleteUser(res.user).then(() => {
+            setUid("");
+            alert("Your Account Deleted Due To Not Verified Email.")
+            navigate("/login");
+            return;
+          }).catch((err) => {
+            props.showAlert(err.message, "danger")
+          });
+        } 
+        else
+        {
+          navigate("/");
+          setUid(res.user.uid);
+          setUser(res.user.displayName);
+          props.showAlert("Login Done!", "success")
+        }
 
-        setUid(res.user.uid);
-
-        setUser(res.user.displayName);
-
-        navigate("/");
       })
       .catch((err) => {
-        console.log(err)
+        props.showAlert(err.code, "danger")
         navigate("/signup");
-        // setSubmitButtonDisabled(false);
-        props.showAlert("You Have To SignUp First", "danger")
       });
   };
   const onChange = (e) => {

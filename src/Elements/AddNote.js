@@ -9,10 +9,10 @@ const AddNote = (props) => {
   const handleClick = async (e) => {
     e.preventDefault();
 
-    const newNotRef = doc(collection(db, "notes"));
+    const newNoteRef = doc(collection(db, "notes"));
     
-    setDoc(newNotRef,{
-      doc_id: newNotRef.id,
+    setDoc(newNoteRef,{
+      doc_id: newNoteRef.id,
       title: note.title,
       description: note.description,
       tag: note.tag,
