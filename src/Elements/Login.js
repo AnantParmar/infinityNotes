@@ -1,7 +1,14 @@
 import React, { useState, useContext } from "react";
 import noteContext from "../context/notes/noteContext";
 import { useNavigate, Link } from "react-router-dom";
-import { signInWithEmailAndPassword , deleteUser, } from "firebase/auth";
+import { signInWithEmailAndPassword , deleteUser} from "firebase/auth";
+import {
+  doc,
+  deleteDoc,
+  collection,
+  query,
+  where, getDocs
+} from "firebase/firestore";
 import { auth,db } from "../config";
 
 const Login = (props) => {
@@ -26,12 +33,20 @@ const Login = (props) => {
         setSubmitButtonDisabled(false);
         if(!res.user.emailVerified)
         {
-          deleteUser(res.user).then(() => {
+          deleteUser(res.user).then(async () => {
             setUid("");
             alert("Your Account Deleted Due To Not Verified Email.")
             navigate("/login");
+            const q = query(collection(db, "users"), where("userId", "==", res.user.uid));
+            console.log(q)
+            const querySnapshot = await getDocs(q);
+            console.log(querySnapshot);
+            querySnapshot.forEach( async (doc) => {
+              await deleteDoc(doc(db, "users", doc.id));
+            });
             return;
           }).catch((err) => {
+            console.log(err)
             props.showAlert(err.message, "danger")
           });
         } 

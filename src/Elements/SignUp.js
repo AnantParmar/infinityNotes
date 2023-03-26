@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {useNavigate, Link} from 'react-router-dom'
 import {createUserWithEmailAndPassword, updateProfile,sendEmailVerification} from 'firebase/auth'
 import { collection, doc, setDoc} from "firebase/firestore";
-import { app,auth , actionCodeSettings, db, } from "../config";
+import { auth , db, } from "../config";
 
 const SignUp = (props) => {
   const [credentials, setCreadentials] = useState({name: "",email: "", password: "", cpassword: ""})
@@ -27,8 +27,9 @@ const SignUp = (props) => {
    
     setSubmitButtonDisabled(true);
 
-    createUserWithEmailAndPassword(auth, email, password).
-    then((res)=> {
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((res)=> {
+      auth.languageCode = 'en';
       sendEmailVerification(auth.currentUser)
       .then(() => {
         alert('Email Sent For Verification')
@@ -38,25 +39,25 @@ const SignUp = (props) => {
       .catch((err)=>{
         alert(err.message)
       })
-      // .then(()=>{
+      .then(()=>{
 
-      //   const newUserRef = doc(collection(db, "users"));
-      //   setDoc(newUserRef,{
-      //     name:name, 
-      //     email:email,
-      //     date:new Date(),
-      //     userId : res.user.uid,
-      //     doc_id : newUserRef.id
-      //   })
-      //   .catch((err)=>{
-      //     console.log(err.message)
-      //     alert(err.message)
-      //   })
-      // })
-      // .catch((err)=>{
-      //   console.log(err.message)
-      //   alert(err.message)
-      // })
+        const newUserRef = doc(collection(db, "users"));
+        setDoc(newUserRef,{
+          name: name, 
+          email: email,
+          date: new Date(),
+          userId : res.user.uid,
+          doc_id : newUserRef.id
+        })
+        .catch((err)=>{
+          console.log(err.message)
+          alert(err.message)
+        })
+      })
+      .catch((err)=>{
+        console.log(err.message)
+        alert(err.message)
+      })
 
       props.showAlert("Successfully SignUp", "success")
       setSubmitButtonDisabled(false);
