@@ -41,8 +41,8 @@ const Login = (props) => {
             console.log(q)
             const querySnapshot = await getDocs(q);
             console.log(querySnapshot);
-            querySnapshot.forEach( async (doc) => {
-              await deleteDoc(doc(db, "users", doc.id));
+            querySnapshot.forEach( async (doc1) => {
+              await deleteDoc(doc(db, "users", doc1.id));
             });
             return;
           }).catch((err) => {
