@@ -50,12 +50,10 @@ const SignUp = (props) => {
           doc_id : newUserRef.id
         })
         .catch((err)=>{
-          console.log(err.message)
           alert(err.message)
         })
       })
       .catch((err)=>{
-        console.log(err.message)
         alert(err.message)
       })
 
@@ -69,8 +67,7 @@ const SignUp = (props) => {
       navigate("/login");
     }).catch((err)=>{
       alert(err.message)
-      console.log(err)
-      // props.showAlert(err.code, "danger")
+    
       setSubmitButtonDisabled(false);
       navigate("/login")
       return;

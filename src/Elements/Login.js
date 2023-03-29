@@ -38,15 +38,12 @@ const Login = (props) => {
             alert("Your Account Deleted Due To Not Verified Email.")
             navigate("/login");
             const q = query(collection(db, "users"), where("userId", "==", res.user.uid));
-            console.log(q)
             const querySnapshot = await getDocs(q);
-            console.log(querySnapshot);
             querySnapshot.forEach( async (doc1) => {
               await deleteDoc(doc(db, "users", doc1.id));
             });
             return;
           }).catch((err) => {
-            console.log(err)
             props.showAlert(err.message, "danger")
           });
         } 
