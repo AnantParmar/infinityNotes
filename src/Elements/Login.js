@@ -33,19 +33,8 @@ const Login = (props) => {
         setSubmitButtonDisabled(false);
         if(!res.user.emailVerified)
         {
-          deleteUser(res.user).then(async () => {
-            setUid("");
-            alert("Your Account Deleted Due To Not Verified Email.")
-            navigate("/login");
-            const q = query(collection(db, "users"), where("userId", "==", res.user.uid));
-            const querySnapshot = await getDocs(q);
-            querySnapshot.forEach( async (doc1) => {
-              await deleteDoc(doc(db, "users", doc1.id));
-            });
-            return;
-          }).catch((err) => {
-            props.showAlert(err.message, "danger")
-          });
+          props.showAlert("Your Email is not Verified!", "danger")
+          navigate("/login")
         } 
         else
         {

@@ -34,10 +34,9 @@ const SignUp = (props) => {
       .then(() => {
         alert('Email Sent For Verification')
         window.open('https://mail.google.com/mail/');
-        alert('Please Verify Your Email either Your Account is Deleted When You Try To Login')
       })
       .catch((err)=>{
-        alert(err.message)
+        props.showAlert(err.code, "danger")
       })
       .then(()=>{
 
@@ -50,26 +49,23 @@ const SignUp = (props) => {
           doc_id : newUserRef.id
         })
         .catch((err)=>{
-          alert(err.message)
+          props.showAlert(err.code, "danger")
         })
       })
       .catch((err)=>{
-        alert(err.message)
+        props.showAlert(err.code, "danger")
       })
-
       props.showAlert("Successfully SignUp", "success")
       setSubmitButtonDisabled(false);
       const user = res.user;
       updateProfile(user, {
         displayName: name
       })
-      
       navigate("/login");
     }).catch((err)=>{
-      alert(err.message)
-    
+      props.showAlert(err.code, "danger")
       setSubmitButtonDisabled(false);
-      navigate("/login")
+      navigate("/signup")
       return;
     })
 

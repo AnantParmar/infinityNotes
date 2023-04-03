@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400&display=swap');
+* {
+  font-family: 'Josefin Sans', sans-serif;
+}
 .App {
   text-align: center;
 }
@@ -62,6 +66,31 @@ i {
   color: #61dafb;
   font-size: 1rem;
 }
+.userSpan {
+  width: fit-content;
+}
+.userUl {
+  display: block;
+  position: fixed;
+  list-style-position: outside;
+  list-style-type: none;
+  width: fit-content;
+  background: linear-gradient(90deg, rgba(9,9,121,1) 30%, rgba(2,0,36,1) 50%, rgba(0,212,255,1) 70%);
+  background-clip: text;
+  opacity: 0;
+  transition: all 1s linear;
+}
+.userUl li {
+  background-color: cornflowerblue;
+  padding: 5px;
+  font-weight: bold;
+  border-radius: 5px;
+  
+}
+.userSpan:hover .userUl {
+  opacity: 1;
+}
+
 @media (min-width: 992px) {
   .navbar-expand-lg .collapse {
     display: flex;
@@ -73,6 +102,10 @@ i {
     justify-content: space-around;
     align-items: center;
     flex-direction: row;
+  }
+  .userUl {
+    top: 80px;
+    right: 10px;
   }
 }
 @media (max-width: 992px) {
@@ -90,6 +123,7 @@ i {
     justify-content: space-between;
     width: 100%;
     flex-direction: row;
+    position: relative;
   }
   #loginDiv {
     display: flex;
@@ -103,6 +137,10 @@ i {
   } */
   .navbar > .container-fluid {
       justify-content: space-between;
+  }
+  .userUl {
+    top: 255px;
+    left: -15px;
   }
 }
 @media (max-width: 500px) {
@@ -119,3 +157,5 @@ i {
     font-size: 0.6rem;
   }
 }
+
+
