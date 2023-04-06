@@ -9,6 +9,8 @@ const SignUp = (props) => {
   let navigate = useNavigate();
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
   const [error, setError] = useState("");
+  
+  
   const handleSubmit = async (e) => {
     const {name, email, password, cpassword} = credentials;
     if (!email || !password || !name || !cpassword) {
@@ -76,7 +78,7 @@ const onChange = (e) => {
   }
 
   return (
-    <div className="container border border-info border-3 rounded-3 p-3  bg-info bg-gradient">
+    <div className="container formDiv border border-info border-3 rounded-3 p-3  bg-transparent">
       <div className="container p-4">
       <h1>SignUp To Explore Infinity Notes</h1>
       <form onSubmit={handleSubmit} className="my-2">

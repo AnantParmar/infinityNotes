@@ -1,15 +1,9 @@
 import React, { useState, useContext } from "react";
 import noteContext from "../context/notes/noteContext";
 import { useNavigate, Link } from "react-router-dom";
-import { signInWithEmailAndPassword , deleteUser} from "firebase/auth";
-import {
-  doc,
-  deleteDoc,
-  collection,
-  query,
-  where, getDocs
-} from "firebase/firestore";
-import { auth,db } from "../config";
+import { signInWithEmailAndPassword} from "firebase/auth";
+
+import { auth } from "../config";
 
 const Login = (props) => {
   const [credentials, setCreadentials] = useState({ email: "", password: "" });
@@ -54,7 +48,7 @@ const Login = (props) => {
     setCreadentials({ ...credentials, [e.target.name]: e.target.value });
   };
   return (
-    <div className="container border border-info border-3 rounded-3 p-3 bg-info  bg-gradient">
+    <div className="formDiv container border border-info border-3 rounded-3 p-3 bg-trasparent">
       <div className="container p-4">
         <h1>Login To Infinity Notes</h1>
         <form onSubmit={handleSubmit} className="form-floating my-3">

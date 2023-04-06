@@ -21,7 +21,7 @@ const Navbar = (props) => {
   let location = useLocation();
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-lg bg-transparent">
         <div className="container-fluid ">
           <Link className="navbar-brand" id="logo" to="/">
             <img src={logo} width={"50px"} height={"50px"} alt={"logo"}/>
