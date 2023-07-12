@@ -34,11 +34,12 @@ const SignUp = (props) => {
       auth.languageCode = 'en';
       sendEmailVerification(auth.currentUser)
       .then(() => {
-        alert('Email Sent For Verification')
+        props.showAlert("Please Verify Email", "success")
         window.open('https://mail.google.com/mail/');
       })
       .catch((err)=>{
-        props.showAlert(err.code, "danger")
+        setSubmitButtonDisabled(false);
+        setError(err.code)
       })
       .then(()=>{
 
@@ -51,11 +52,13 @@ const SignUp = (props) => {
           doc_id : newUserRef.id
         })
         .catch((err)=>{
-          props.showAlert(err.code, "danger")
+          setSubmitButtonDisabled(false);
+          setError(err.code)
         })
       })
       .catch((err)=>{
-        props.showAlert(err.code, "danger")
+        setSubmitButtonDisabled(false);
+        setError(err.code)
       })
       props.showAlert("Successfully SignUp", "success")
       setSubmitButtonDisabled(false);
@@ -65,7 +68,7 @@ const SignUp = (props) => {
       })
       navigate("/login");
     }).catch((err)=>{
-      props.showAlert(err.code, "danger")
+      setError(err.code)
       setSubmitButtonDisabled(false);
       navigate("/signup")
       return;

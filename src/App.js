@@ -10,21 +10,6 @@ import Login from "./Elements/Login";
 import SignUp from "./Elements/SignUp";
 function App() {
   const [alert, setAlert] = useState(null);
-  function myFunction(x) {
-    let formDivs = document.getElementsByClassName("formDiv")
-    if (x.matches) { 
-      for (let i = 0, len = formDivs.length; i < len; i++) {
-        formDivs[0].classList.remove('w-50')
-      }
-    } else {
-      for (let i = 0, len = formDivs.length; i < len; i++) {
-        formDivs[0].classList.add('w-50')
-      }
-    }
-  }
-  var x = window.matchMedia("(max-width: 992px)")
-  myFunction(x)
-  x.addListener(myFunction)
   const showAlert = (message, type) => {
     setAlert({
       msg: message,

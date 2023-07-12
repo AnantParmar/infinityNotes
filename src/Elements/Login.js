@@ -27,7 +27,7 @@ const Login = (props) => {
         setSubmitButtonDisabled(false);
         if(!res.user.emailVerified)
         {
-          props.showAlert("Your Email is not Verified!", "danger")
+          setError("Email not Verified Yet")
           navigate("/login")
         } 
         else
@@ -40,8 +40,9 @@ const Login = (props) => {
 
       })
       .catch((err) => {
-        props.showAlert(err.code, "danger")
-        navigate("/signup");
+        setError(err.code)
+        setSubmitButtonDisabled(false);
+        navigate("/login");
       });
   };
   const onChange = (e) => {

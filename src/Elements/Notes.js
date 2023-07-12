@@ -14,7 +14,6 @@ const Notes = (props ) => {
     if(uid)
     {
       getNotes();
-      props.showAlert("Logged Sucessfully", "success")
     }else {
       navigate("/login");
     }
@@ -139,7 +138,7 @@ const Notes = (props ) => {
       </div>
 
       <div className="container my-2">
-        <h2>Your Notes</h2>
+        <h2 style={{display: 'flex', alignItems: 'center', justifyContent: "flex-start"}}>Your Notes <span onClick={getNotes} style={{width: "28px", height: "100%", display: 'inline-block', marginLeft: "20px"}}><i style={{fontSize: "1.5rem"}} class="fa-solid fa-rotate-right"></i></span></h2>
         <div className="row mx-2">
         {notes.length === 0 ? "No Notes to Display":
         
